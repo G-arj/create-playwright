@@ -78,8 +78,13 @@ for (const packageManager of ['npm', 'yarn'] as ('npm' | 'yarn')[]) {
       expect(fs.existsSync(path.join(dir, 'package.json'))).toBeTruthy();
       expect(fs.existsSync(path.join(dir, 'playwright.config.ts'))).toBeTruthy();
 
-      const result = await exec(packageManager === 'npm' ? 'npx' : 'yarn', ['playwright', 'test']);
-      expect(result.code).toBe(0);
+      {
+        const { code } = await exec(packageManager === 'npm' ? 'npx' : 'yarn', ['playwright', 'install-deps']);
+        expect(code).toBe(0);
+      }
+
+      const { code } = await exec(packageManager === 'npm' ? 'npx' : 'yarn', ['playwright', 'test']);
+      expect(code).toBe(0);
     });
 
     test('should generate be able to run JS examples successfully', async ({ run }) => {
@@ -89,8 +94,13 @@ for (const packageManager of ['npm', 'yarn'] as ('npm' | 'yarn')[]) {
       expect(fs.existsSync(path.join(dir, 'package.json'))).toBeTruthy();
       expect(fs.existsSync(path.join(dir, 'playwright.config.js'))).toBeTruthy();
 
-      const result = await exec(packageManager === 'npm' ? 'npx' : 'yarn', ['playwright', 'test']);
-      expect(result.code).toBe(0);
+      {
+        const { code } = await exec(packageManager === 'npm' ? 'npx' : 'yarn', ['playwright', 'install-deps']);
+        expect(code).toBe(0);
+      }
+
+      const { code } = await exec(packageManager === 'npm' ? 'npx' : 'yarn', ['playwright', 'test']);
+      expect(code).toBe(0);
     });
   });
 }
